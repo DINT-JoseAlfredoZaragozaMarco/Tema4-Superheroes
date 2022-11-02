@@ -23,7 +23,7 @@ namespace Tema4_Superheroes.Modelo
             set
             {
                 nombre = value;
-                //this.NotifyPropertyChanged("Nombre");
+                this.NotifyPropertyChanged("Nombre");
             }
         }
 

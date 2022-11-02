@@ -69,6 +69,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convertidores\ConvertidorBackground.cs" />
+    <Compile Include="Convertidores\ConvertidorImagen.cs" />
     <Compile Include="Modelo\Superheroe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

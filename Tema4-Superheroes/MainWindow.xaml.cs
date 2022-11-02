@@ -26,9 +26,28 @@ namespace Tema4_Superheroes
         public MainWindow()
         {
             InitializeComponent();
-            contador = 1;
+            contador = 0;
             superheroes = Superheroe.GetSamples();
-            countTextBlock.Text = contador+"/"+superheroes.Count;
+            countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
+            ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if ((sender as Image).Tag.Equals("Right"))
+            {
+                if (contador >= superheroes.Count-1) contador = contador;
+                else contador++;
+                countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
+                ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
+            }
+            else
+            {
+                if (contador <= 0) contador = contador;
+                else contador--;
+                countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
+                ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
+            }
         }
     }
 }
