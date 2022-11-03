@@ -47,19 +47,21 @@
         </Style>
     </Window.Resources>
     
-    <DockPanel LastChildFill="True" Background="{Binding Path=Heroe, Converter={StaticResource ConvertidorBackground}}" x:Name="ContenedorPrincipal_DockPanel">
+    <DockPanel LastChildFill="True" Background="{Binding Path=Personaje.Heroe, Converter={StaticResource ConvertidorBackground}}" x:Name="ContenedorPrincipal_DockPanel">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-            <TextBlock DockPanel.Dock="Left" Style="{StaticResource NameTextBlock}" Text="{Binding Path=Nombre}"></TextBlock>
+            <TextBlock DockPanel.Dock="Left" Style="{StaticResource NameTextBlock}" Text="{Binding Path=Personaje.Nombre}"></TextBlock>
             <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Image Source="./assets/avengers.png" Height="50" Visibility="{Binding Path=Vengador, Converter={StaticResource ConvertidorImagen}}"></Image>
-                <Image Source="./assets/xmen.png" Height="50" Visibility="{Binding Path=Xmen, Converter={StaticResource ConvertidorImagen}}"></Image>
+                <Image Source="./assets/avengers.png" Height="50" Visibility="{Binding Path=Personaje.Vengador, Converter={StaticResource ConvertidorImagen}}"></Image>
+                <Image Source="./assets/xmen.png" Height="50" Visibility="{Binding Path=Personaje.Xmen, Converter={StaticResource ConvertidorImagen}}"></Image>
             </StackPanel>
         </DockPanel>
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="50" Orientation="Horizontal">
             <Image Source="./assets/arrow.png" Tag ="Left" Style="{StaticResource Flecha}" MouseLeftButtonDown="Image_MouseLeftButtonDown"></Image>
-            <TextBlock x:Name="countTextBlock" Margin="10" FontSize="20" FontWeight="Bold">0/0</TextBlock>
+            <TextBlock Text="{Binding Path=Posicion}" Margin="10" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="/" x:Name="countTextBlock" Margin="10" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Path=Total}" Margin="10" FontSize="20" FontWeight="Bold"></TextBlock>
             <Image Source="./assets/arrow.png" Tag ="Right" Style="{StaticResource FlechaInvertida}" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
         </StackPanel>
-        <Image Source="{Binding Path=Imagen}"></Image>
+        <Image Source="{Binding Path=Personaje.Imagen}" Stretch="Fill"></Image>
     </DockPanel>
 </Window>

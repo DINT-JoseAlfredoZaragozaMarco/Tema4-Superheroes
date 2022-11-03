@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tema4_Superheroes.Modelo;
+using Tema4_Superheroes.VistasModelo;
 
 namespace Tema4_Superheroes
 {
@@ -21,33 +22,17 @@ namespace Tema4_Superheroes
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int contador;
-        List<Superheroe> superheroes;
+        MainWindowVM vm = new MainWindowVM();
         public MainWindow()
         {
             InitializeComponent();
-            contador = 0;
-            superheroes = Superheroe.GetSamples();
-            countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
-            ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
+            this.DataContext = vm;
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if ((sender as Image).Tag.Equals("Right"))
-            {
-                if (contador >= superheroes.Count-1) contador = contador;
-                else contador++;
-                countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
-                ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
-            }
-            else
-            {
-                if (contador <= 0) contador = contador;
-                else contador--;
-                countTextBlock.Text = (contador + 1) + "/" + superheroes.Count;
-                ContenedorPrincipal_DockPanel.DataContext = superheroes[contador];
-            }
+            if ((sender as Image).Tag.Equals("Right")) vm.Avanzar();
+            else vm.Retroceder();
         }
     }
 }
