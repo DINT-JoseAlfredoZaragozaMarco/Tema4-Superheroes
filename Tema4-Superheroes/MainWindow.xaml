@@ -7,12 +7,41 @@
         xmlns:Convertidores="clr-namespace:Tema4_Superheroes.Convertidores"
         mc:Ignorable="d"
         Icon="./assets/shield.ico"
-        Title="Superhéroes" Height="450" Width="800">
+        Title="Superhéroes" Height="650" Width="900">
 
     
     <Window.Resources>
         <Convertidores:ConvertidorBackground x:Key="ConvertidorBackground"></Convertidores:ConvertidorBackground>
         <Convertidores:ConvertidorImagen x:Key="ConvertidorImagen"></Convertidores:ConvertidorImagen>
+        <Style TargetType="{x:Type DockPanel}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Personaje.Heroe}" Value="True">
+                    <Setter Property="Background" Value="PaleGreen"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Personaje.Heroe}" Value="False">
+                    <Setter Property="Background" Value="IndianRed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="Vengador">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Personaje.Vengador}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="{x:Type Image}" x:Key="Xmen">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Personaje.Xmen}" Value="True">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <Style TargetType="{x:Type TextBlock}" x:Key="DefaultTextBlock">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -25,14 +54,46 @@
                     <DropShadowEffect/>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="FontSize" To="60" Duration="0:0:3"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="FontSize" To="40" Duration="0:0:3"></DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type Image}">
             <Setter Property="Margin" Value="10"/>
         </Style>
+
+        <Style TargetType="{x:Type Border}" x:Key="BordeImagen">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="CornerRadius" Value="2"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Opacity" Value="0.5"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Opacity" Value="1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style TargetType="{x:Type Image}" x:Key="Flecha">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Height" Value="30"/>
         </Style>
+
         <Style TargetType="{x:Type Image}" x:Key="FlechaInvertida" BasedOn="{StaticResource Flecha}">
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -47,12 +108,12 @@
         </Style>
     </Window.Resources>
     
-    <DockPanel LastChildFill="True" Background="{Binding Path=Personaje.Heroe, Converter={StaticResource ConvertidorBackground}}" x:Name="ContenedorPrincipal_DockPanel">
+    <DockPanel LastChildFill="True" x:Name="ContenedorPrincipal_DockPanel">
         <DockPanel DockPanel.Dock="Top" LastChildFill="False">
-            <TextBlock DockPanel.Dock="Left" Style="{StaticResource NameTextBlock}" Text="{Binding Path=Personaje.Nombre}"></TextBlock>
+            <TextBlock DockPanel.Dock="Left" Style="{StaticResource NameTextBlock}" Text="{Binding Path=Personaje.Nombre}" FontSize="40"></TextBlock>
             <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Image Source="./assets/avengers.png" Height="50" Visibility="{Binding Path=Personaje.Vengador, Converter={StaticResource ConvertidorImagen}}"></Image>
-                <Image Source="./assets/xmen.png" Height="50" Visibility="{Binding Path=Personaje.Xmen, Converter={StaticResource ConvertidorImagen}}"></Image>
+                <Image Source="./assets/avengers.png" Height="50" Style="{StaticResource Vengador}"></Image>
+                <Image Source="./assets/xmen.png" Height="50" Style="{StaticResource Xmen}"></Image>
             </StackPanel>
         </DockPanel>
         <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Height="50" Orientation="Horizontal">
@@ -62,6 +123,8 @@
             <TextBlock Text="{Binding Path=Total}" Margin="10" FontSize="20" FontWeight="Bold"></TextBlock>
             <Image Source="./assets/arrow.png" Tag ="Right" Style="{StaticResource FlechaInvertida}" RenderTransformOrigin="0.5,0.5" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
         </StackPanel>
-        <Image Source="{Binding Path=Personaje.Imagen}" Stretch="Fill"></Image>
+        <Border Style="{StaticResource BordeImagen}">
+            <Image Source="{Binding Path=Personaje.Imagen}" Margin="0" Stretch="Fill"></Image>
+        </Border>
     </DockPanel>
 </Window>
